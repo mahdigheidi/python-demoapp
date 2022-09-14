@@ -33,7 +33,7 @@ deploy_app:
         - chmod 400 $SSH_PRV_KEY
         - apt update && apt install openssh-client -y
         - apt install iputils-ping -y
-        - ping -c3 google.com
+        - ping -c3 172.217.203.101
         - ping -c3 31.47.39.2
         - ssh -T ubuntu@94.101.185.77
     script:

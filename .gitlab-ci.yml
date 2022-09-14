@@ -3,35 +3,35 @@ stages:
     - build
     - deploy
 
-run_tests:
-    stage: test
-    image: python:3.9-slim-buster
-    before_script:
-        - apt-get update && apt-get install make -y
-    script:
-        - make test
+# run_tests:
+#     stage: test
+#     image: python:3.9-slim-buster
+#     before_script:
+#         - apt-get update && apt-get install make -y
+#     script:
+#         - make test
 
-build_image:
-    stage: build
-    image: docker:20.10.16
-    services:
-        - docker:20.10.16-dind
-    variables:
-        DOCKER_TLS_CERTDIR: "/certs"
-        IMAGE_NAME: mahdigheidi/mahdigheidi
-        IMAGE_TAG: python-app-1.0.0
-    before_script:
-        - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
-    script:
-        - docker build -t $IMAGE_NAME:$IMAGE_TAG .
-        - docker push $IMAGE_NAME:$IMAGE_TAG
+# build_image:
+#     stage: build
+#     image: docker:20.10.16
+#     services:
+#         - docker:20.10.16-dind
+#     variables:
+#         DOCKER_TLS_CERTDIR: "/certs"
+#         IMAGE_NAME: mahdigheidi/mahdigheidi
+#         IMAGE_TAG: python-app-1.0.0
+#     before_script:
+#         - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+#     script:
+#         - docker build -t $IMAGE_NAME:$IMAGE_TAG .
+#         - docker push $IMAGE_NAME:$IMAGE_TAG
 
 deploy_app:
     stage: deploy
     image: ubuntu:latest
     before_script:
         - chmod 400 $SSH_PRV_KEY
-        - apt install openssh-client
+        - apt update && apt install openssh-client -y
         - ssh -T ubuntu@94.101.185.77
     script:
         - ssh -o StrictHostKeyChecking=no -i $SSH_PRV_KEY ubuntu@94.101.185.77

@@ -3,6 +3,7 @@ stages:
     - build
 
 run_tests:
+    stage: test
     image: python:3.9-slim-buster
     before_script:
         - apt-get update && apt-get install make -y
@@ -10,6 +11,7 @@ run_tests:
         - make test
 
 build_image:
+    stage: build
     image: docker:20.10.16
     services:
         - docker:20.10.16-dind

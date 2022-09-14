@@ -1,3 +1,7 @@
+stages:
+    - test
+    - build
+
 run_tests:
     image: python:3.9-slim-buster
     before_script:

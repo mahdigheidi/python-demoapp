@@ -28,7 +28,7 @@ build_image:
 
 deploy_app:
     stage: deploy
-    image: alpine:latest
+    image: ubuntu:latest
     before_script:
         - chmod 400 $SSH_PRV_KEY
         - ssh -T ubuntu@94.101.185.77

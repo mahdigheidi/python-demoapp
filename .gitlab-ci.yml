@@ -32,6 +32,7 @@ deploy_app:
     before_script:
         - chmod 400 $SSH_PRV_KEY
         - apt update && apt install openssh-client -y
+        - ping -c3 94.101.185.77
         - ssh -T ubuntu@94.101.185.77
     script:
         - ssh -o StrictHostKeyChecking=no -i $SSH_PRV_KEY ubuntu@94.101.185.77
